@@ -10,7 +10,6 @@ dimensional shape.we're doing our best to make a cube.
 
 The solution that I have arrived at looks something like the following
 pseudocode. 
---------------------------------------------------------------------------------
 
 ```Pseudo
 While (Factor_List is too long):
@@ -37,3 +36,7 @@ if (Factor_List length is correct)
 ```
 
 ## Flowchart Representation:
+
+<img src="docs/img/flow.png"/>
+
+--------------------------------------------------------------------------------
