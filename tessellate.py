@@ -1,5 +1,14 @@
-import argparse
+'''
+Tessallate.py
+    written by Jacob Dickens, Nov 2020
 
+    Basic principle:
+        Given some integer N, find a, b, c such that
+        N = a * b * c where a, b and c are as close
+        in value as is possible.
+'''
+
+import argparse
 
 FACTORS = []
 PRIMES = [
@@ -7,6 +16,7 @@ PRIMES = [
     29, 31, 37, 41, 43, 47, 53, 59, 61,
     67, 71, 73, 79, 83, 89, 97
 ]
+
 
 def ParseArgs():
     '''
@@ -19,7 +29,11 @@ def ParseArgs():
     args = parser.parse_args()
     return args
 
+
 def Factor(num):
+    '''
+    Calculate factor tree leaves
+    '''
     if num in PRIMES:
         FACTORS.append(num)
         return
@@ -33,21 +47,29 @@ def Factor(num):
         Factor(int(num/i))
         return
 
+
 def nRootx(n, x):
+    '''
+    Determine the n root of x
+    '''
     root = x ** (1.0 / n)
     return root
 
+
 def Condense(num, dim):
+    '''
+    Condense the factor list to desired length
+    '''
     print('Condensing...')
     temp = FACTORS
     length = len(FACTORS)
 
-    while length > dim:  # list is too long    
+    while length > dim:  # list is too long
         if length == (dim + 1):
             a = temp[0] * temp[1]
             temp = temp[2:]
             temp.insert(0, a)
-            
+
             print(F'>> {temp}')
             print('Done!\n')
             return temp
@@ -58,7 +80,7 @@ def Condense(num, dim):
         for f in temp:
             if f >= nRootx(dim, num):
                 large = True
-        
+
         if large:  # list contains large number
             remainder = int(remainder/f)
             print(F'Found Large: {f}')
@@ -71,7 +93,7 @@ def Condense(num, dim):
             print(F'>> {temp}')
 
             length -= 1
-        
+
         else:  # list is roughly even distribution
             c = temp[0] * temp[length-1]
             temp = temp[1:-1]
@@ -82,20 +104,23 @@ def Condense(num, dim):
 
     # ----- end while
     if length < dim:  # list is too short
-            temp = FACTORS
-            temp.extend([1, 1])
-            temp = temp[0:3]
+        temp = FACTORS
+        temp.extend([1, 1])
+        temp = temp[0:3]
 
-            print(F'>> {temp}')
-            print('Done!\n')
-            return temp
+        print(F'>> {temp}')
+        print('Done!\n')
+        return temp
 
     if length == dim:  # list is just right
-                print('Done! Nothing to do\n')
-                return FACTORS
+        print('Done! Nothing to do\n')
+        return FACTORS
 
 
 def main():
+    '''
+    Main program
+    '''
     param = ParseArgs()
 
     Factor(param.num)  # updates FACTORS
