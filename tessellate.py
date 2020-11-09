@@ -23,10 +23,22 @@ def ParseArgs():
     Process program arguments
     '''
     parser = argparse.ArgumentParser('')
-    parser.add_argument('num', type=int,)
-    parser.add_argument('--dim', type=int, default=3)
+    parser.add_argument(
+        'num',
+        type=int,
+        help='Original number'
+    )
+    parser.add_argument(
+        '--dim',
+        type=int,
+        default=3,
+        help='Dimensions'
+    )
 
     args = parser.parse_args()
+    if args.num < 1 or args.dim < 1:
+        raise argparse.ArgumentTypeError(F"{args.num} isn't a positive int")
+
     return args
 
 
@@ -42,10 +54,22 @@ def Factor(num):
         if num % i != 0:
             continue
 
-        # else
+        # else, i cleanly divides num
         FACTORS.append(i)
         Factor(int(num/i))
         return
+
+
+def CatchPrime(num):
+    '''
+    Include potential missing prime in FACTORS
+    '''
+    product = 1
+    for item in FACTORS:
+        product *= item
+
+    if num != product:  # append missing prime
+        FACTORS.append(num/product)
 
 
 def nRootx(n, x):
@@ -124,8 +148,8 @@ def main():
     param = ParseArgs()
 
     Factor(param.num)  # updates FACTORS
-    print('Factors:')
-    print(F'{FACTORS}\n')
+    CatchPrime(param.num)
+    print(F'Factors:\n{FACTORS}\n')
 
     result = Condense(param.num, param.dim)
     print(F'Final: {result}\n')
