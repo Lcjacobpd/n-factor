@@ -1,4 +1,4 @@
-# Tessallate.py
+# Factor.py
 
 ## Basic Outline:
 
@@ -10,34 +10,25 @@ dimensional shape.we're doing our best to make a cube.
 
 First, the tail factors of the original number are calculated and collected
 in a list. This list is pre-sorted from least to greatest which will be
-helpful in the next phase when we try to intellegently combine items until
-only 2-3 remain (Or however many are specified).
+helpful in the next phase when we try to intellegently recombine items until
+only 2-3 remain (Or however many are specified in the dimension parameter).
 
 The solution that I have arrived at looks something like the following
 pseudocode. 
 
 ```Pseudo
-While (Factor_List is too long):
-    Case 1: One too many items
-        Merge first two items
-        DONE
-    
-    Case 2: List contains a large item
-        Merge first and second largest items
-        LOOP
+While (factor_List > dimensions):
+    # Case 1: List is 1 item too long
+    # Combine the first 2 items
 
-    Case 3: List is roughly even distribution
-        Merge first and last item
-        LOOP
+    # Case 2: List contains a large value
+    # Combine first and second largest
 
+    # Case 3: List is mostly even distribution
+    # Combine first and last items
 
-# else Factor_List is not too long
-if (Factor_List is too short):
-    append 1's as necessary
-    DONE
-
-if (Factor_List length is correct)
-    DONE
+# factor list is <= desired dimension
+# Add 1's as needed and crop to size
 ```
 -------------------------------------------------------------------------------
 
