@@ -47,7 +47,7 @@ class Factor:
         '''
         self.number = number
         self.dimensions = dimensions
-        self.factor_list = [int]
+        self.factor_list = []
         self.prime_list = [
             1, 2, 3, 5, 7, 11, 13, 17, 19, 23,
             29, 31, 37, 41, 43, 47, 53, 59, 61,
@@ -179,6 +179,7 @@ def main():
 
     print('\nCondensing factor list...')
     breakdown.condense_list()
+    results = breakdown.factor_list.sort(reverse=True)
     print(F'\nFinal: {breakdown.factor_list}')
 
 
