@@ -10,15 +10,8 @@ Tessallate.py
 
 import argparse
 
-FACTORS = []
-PRIMES = [
-    1, 2, 3, 5, 7, 11, 13, 17, 19, 23,
-    29, 31, 37, 41, 43, 47, 53, 59, 61,
-    67, 71, 73, 79, 83, 89, 97
-]
 
-
-def ParseArgs():
+def parse_args():
     '''
     Process program arguments
     '''
@@ -42,117 +35,151 @@ def ParseArgs():
     return args
 
 
-def Factor(num):
+class Factor:
     '''
-    Calculate factor tree leaves
+    Provide tools for prime factor combination and
+    intellegent recombination
     '''
-    if num in PRIMES:
-        FACTORS.append(num)
-        return
 
-    for i in range(2, int(num/2) + 1):
-        if num % i != 0:
-            continue
+    def __init__(self, number: int, dimensions: int):
+        '''
+        Initialize factor instance as specified
+        '''
+        self.number = number
+        self.dimensions = dimensions
+        self.factor_list = [int]
+        self.prime_list = [
+            1, 2, 3, 5, 7, 11, 13, 17, 19, 23,
+            29, 31, 37, 41, 43, 47, 53, 59, 61,
+            67, 71, 73, 79, 83, 89, 97
+        ]
 
-        # else, i cleanly divides num
-        FACTORS.append(i)
-        Factor(int(num/i))
-        return
+    def get_prime(self, number):
+        '''
+        Fill factor_list with prime factors
+        '''
+        print(F'{number} -> {self.factor_list}')
 
+        if number in self.prime_list:
+            self.factor_list.append(number)
+            return  # Is prime; done.
 
-def CatchPrime(num):
-    '''
-    Include potential missing prime in FACTORS
-    '''
-    product = 1
-    for item in FACTORS:
-        product *= item
+        for value in range(2, int(number/2) + 1):
+            if number % value != 0:
+                continue  # Not clean division; try next.
 
-    if num != product:  # append missing prime
-        FACTORS.append(int(num/product))
+            # else, value cleanly divides number
+            # append prime factor, repeat with remainder
+            self.factor_list.append(value)
+            self.get_prime(int(number/value))
+            break
 
+    def validate_list(self):
+        '''
+        Check factor list total
+        '''
+        product = 1
+        for item in self.factor_list:
+            product *= item
 
-def nRootx(n, x):
-    '''
-    Determine the n root of x
-    '''
-    root = x ** (1.0 / n)
-    return root
+        # append unlisted prime if missing
+        if self.number != product:
+            remainder = int(self.number/product)
+            print(F'{self.number} != {product}')
+            print(F'Appending {remainder}')
+            self.factor_list.append(remainder)
 
+        else:
+            print(F'{self.number} == {product}\nValid!')
 
-def Condense(num, dim):
-    '''
-    Condense the factor list to desired length
-    '''
-    print('Condensing...')
-    temp = FACTORS
-    length = len(FACTORS)
+    @staticmethod
+    def get_root(degree, number):
+        '''
+        Determine the degree root of number
+        (nth root of x)
+        '''
+        return number ** (1.0 / degree)
 
-    while length > dim:  # list is too long
-        if length == (dim + 1):
-            a = temp[0] * temp[1]
-            temp = temp[2:]
-            temp.insert(0, a)
+    def condense_list(self):
+        '''
+        Condense factor list to desired dimensions
+        '''
+        temp_list = self.factor_list
+        length = len(temp_list)
 
-            print(F'>> {temp}')
-            print('Done!\n')
-            return temp
+        while length > self.dimensions:
+            print(temp_list)
 
-        # check for large
-        remainder = num
-        large = False
-        for f in temp:
-            if f >= nRootx(dim, num):
-                large = True
+            # Case 1: List is 1 item too long
+            # Combine the first 2 items
+            if length == (self.dimensions + 1):
+                print('Case 1 -> ', end='')
 
-        if large:  # list contains large number
-            remainder = int(remainder/f)
-            print(F'Found Large: {f}')
-            print(F'Remainder: {remainder}\n')
+                alyx = temp_list[0] * temp_list[1]
+                temp_list = temp_list[2:]
+                temp_list.insert(0, alyx)
 
-            b = temp[0] * temp[length-2]
-            temp = temp[1:-2]
-            temp.append(b)
-            temp.append(f)
-            print(F'>> {temp}')
+                self.factor_list = temp_list
+                return  # Done
 
-            length -= 1
+            # Check for large values
+            contains_large = False
+            large_val = 0
+            for item in temp_list:
+                if item >= Factor.get_root(self.dimensions, self.number):
+                    contains_large = True
+                    large_val = item
 
-        else:  # list is roughly even distribution
-            c = temp[0] * temp[length-1]
-            temp = temp[1:-1]
-            temp.append(c)
-            print(F'>> {temp}')
+            # Case 2: List contains a large value
+            # Combine first and second largest
+            if contains_large:
+                print('Case 2 -> ', end='')
 
-            length -= 1
+                breen = temp_list[0] * temp_list[length - 2]
+                temp_list = temp_list[1:-2]
+                temp_list.append(breen)
+                temp_list.append(large_val)
 
-    # ----- end while
-    if length < dim:  # list is too short
-        temp = FACTORS
-        temp.extend([1, 1])
-        temp = temp[0:3]
+                length -= 1
 
-        print(F'>> {temp}')
-        print('Done!\n')
-        return temp
+            # Case 3: List is mostly even distribution
+            # Combine first and last items
+            else:
+                print('Case 3 -> ', end='')
 
-    if length == dim:  # list is just right
-        print('Done! Nothing to do\n')
-        return FACTORS
+                calhoun = temp_list[0] * temp_list[length - 1]
+                temp_list = temp_list[1:-1]
+                temp_list.append(calhoun)
+
+                length -= 1
+
+        # End of while
+        # factor list is <= desired dimension
+        if length < self.dimensions:
+            buffer = [1] * self.dimensions
+            temp_list.extend(buffer)
+            temp_list = temp_list[0, self.dimensions]
+
+        self.factor_list = temp_list
+        return  # done
 
 
 def main():
     '''
     Main program
     '''
-    param = ParseArgs()
+    param = parse_args()
+    breakdown = Factor(param.num, param.dim)
 
-    Factor(param.num)  # updates FACTORS
-    CatchPrime(param.num)
-    print(F'Factors:\n{FACTORS}\n')
+    print('\nFactoring...')
+    breakdown.get_prime(param.num)
 
-    result = Condense(param.num, param.dim)
-    print(F'Final: {result}\n')
+    print('\nValidating prime factors...')
+    breakdown.validate_list()
+
+    print('\nCondensing factor list...')
+    breakdown.condense_list()
+    print(F'\nFinal: {breakdown.factor_list}')
 
 
 if __name__ == '__main__':
