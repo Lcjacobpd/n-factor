@@ -69,7 +69,7 @@ def CatchPrime(num):
         product *= item
 
     if num != product:  # append missing prime
-        FACTORS.append(num/product)
+        FACTORS.append(int(num/product))
 
 
 def nRootx(n, x):
