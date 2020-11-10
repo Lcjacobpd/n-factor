@@ -1,5 +1,5 @@
 '''
-Tessallate.py
+factor.py
     written by Jacob Dickens, Nov 2020
 
     Basic principle:
@@ -29,7 +29,10 @@ def parse_args():
     )
 
     args = parser.parse_args()
-    if args.num < 1 or args.dim < 1:
+    if args.num < 1:
+        raise argparse.ArgumentTypeError(F"{args.num} isn't a positive int!")
+
+    if args.dim < 1:
         raise argparse.ArgumentTypeError(F"{args.num} isn't a positive int")
 
     return args
@@ -158,7 +161,7 @@ class Factor:
         if length < self.dimensions:
             buffer = [1] * self.dimensions
             temp_list.extend(buffer)  # Extend to dimension length
-            temp_list = temp_list[0, self.dimensions]
+            temp_list = temp_list[0: self.dimensions]
 
         self.factor_list = temp_list
         return  # Done
