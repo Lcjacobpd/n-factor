@@ -154,14 +154,14 @@ class Factor:
                 length -= 1
 
         # End of while
-        # factor list is <= desired dimension
+        # Factor list is <= desired dimension
         if length < self.dimensions:
             buffer = [1] * self.dimensions
-            temp_list.extend(buffer)
+            temp_list.extend(buffer)  # Extend to dimension length
             temp_list = temp_list[0, self.dimensions]
 
         self.factor_list = temp_list
-        return  # done
+        return  # Done
 
 
 def main():
@@ -179,7 +179,7 @@ def main():
 
     print('\nCondensing factor list...')
     breakdown.condense_list()
-    results = breakdown.factor_list.sort(reverse=True)
+    breakdown.factor_list.sort(reverse=True)
     print(F'\nFinal: {breakdown.factor_list}')
 
 
