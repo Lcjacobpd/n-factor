@@ -74,10 +74,25 @@ def condense_list(self):
 ```
 
 
-## Flowchart Representation:
+## 4. Flowchart Representation:
 <br/>
 <img src="docs/img/flow.png"/>
 <br/><br/>
+
+
+## 5. Experiments
+
+In the local directory experiments, there is an test script for trying
+factor.py with a range of numbers. There are two parameters for the
+experiment, the ceiling for the range of RGN and the optional count of
+those generated numbers. For example, the following will Will perform
+50 tests with a range of numbers between 10-20.
+
+```Shell
+python test.py 20 --count 50
+```
+
+<br/>
 
 -------------------------------------------------------------------------------
 Last Updated - 11/10/2020

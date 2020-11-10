@@ -30,8 +30,8 @@ def parse_args():
     )
 
     args = parser.parse_args()
-    if args.cap < 1:
-        raise argparse.ArgumentTypeError(F"{args.cap} isn't a positive int!")
+    if args.cap < 10:
+        raise argparse.ArgumentTypeError(F"{args.cap} must be larger than 10!")
     if args.count < 1:
         raise argparse.ArgumentTypeError(F"{args.count} isn't a positive int!")
 
