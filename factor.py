@@ -167,23 +167,29 @@ class Factor:
         return  # Done
 
 
-def main():
-    '''
-    Main program
-    '''
-    param = parse_args()
-    breakdown = Factor(param.num, param.dim)
-
+def evaluate(num, dim):
+    breakdown = Factor(num, dim)
+    
     print('\nFactoring...')
-    breakdown.get_prime(param.num)
+    breakdown.get_prime(num)
 
     print('\nValidating prime factors...')
     breakdown.validate_list()
 
     print('\nCondensing factor list...')
     breakdown.condense_list()
+
     breakdown.factor_list.sort(reverse=True)
     print(F'\nFinal: {breakdown.factor_list}')
+
+    return breakdown.factor_list
+
+def main():
+    '''
+    Main program
+    '''
+    param = parse_args()
+    evaluate(param.num, param.dim)
 
 
 if __name__ == '__main__':
