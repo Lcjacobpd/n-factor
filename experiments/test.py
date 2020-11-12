@@ -39,12 +39,12 @@ def parse_args():
 
 
 class Experiment:
-    def __init__(self, ceiling, count):
+    def __init__(self, ceiling: int, count: int):
         self.ceiling = ceiling
         self.count = count
         self.data = []
 
-    def generate(self):
+    def generate(self) -> None:
         '''
         Generate numbers within range
         '''
@@ -52,14 +52,14 @@ class Experiment:
             value = random.randint(10, self.ceiling)
             self.data.append(value)
 
-    def run_tests(self):
+    def run_tests(self) -> None:
         '''
         Call factor.py with data list
         '''
         with open('data.csv', 'wt') as data_file:
             # Setup csv writer and add row header
             csv_writer = csv.writer(data_file)
-            header = ['Original', 'Final']
+            header = ['Original', 'Factors']
             csv_writer.writerow(header)
 
             # Run subprocess experiments
@@ -76,7 +76,9 @@ class Experiment:
                 result = process_info.stdout.decode('utf-8').split('\n')[-2]
                 print(F'%2d. Original: {value} {result}' % (tally + 1))
 
-                row = [value, result[8:-1]]
+                row = [value]
+                for factor in result[8:-1].split(', '):
+                    row.append(int(factor))
                 csv_writer.writerow(row)
 
 

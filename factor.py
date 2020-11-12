@@ -57,7 +57,7 @@ class Factor:
             67, 71, 73, 79, 83, 89, 97
         ]
 
-    def get_prime(self, number):
+    def get_prime(self, number: int) -> None:
         '''
         Fill factor_list with prime factors
         '''
@@ -77,7 +77,7 @@ class Factor:
             self.get_prime(int(number/value))
             break
 
-    def validate_list(self):
+    def validate_list(self) -> None:
         '''
         Check factor list total
         '''
@@ -96,14 +96,14 @@ class Factor:
             print(F'{self.number} == {product}\nValid!')
 
     @staticmethod
-    def get_root(degree, number):
+    def get_root(degree: int, number: int) -> float:
         '''
         Determine the degree root of number
         (nth root of x)
         '''
         return number ** (1.0 / degree)
 
-    def condense_list(self):
+    def condense_list(self) -> None:
         '''
         Condense factor list to desired dimensions
         '''
@@ -167,7 +167,7 @@ class Factor:
         return  # Done
 
 
-def evaluate(num, dim):
+def evaluate(num: int, dim: int) -> list:
     breakdown = Factor(num, dim)
     
     print('\nFactoring...')
