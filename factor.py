@@ -168,6 +168,14 @@ class Factor:
 
 
 def evaluate(num: int, dim: int) -> list:
+    '''
+    Perform factor calculations
+    '''
+    # Get prime factors
+    # Validate factor list
+    # Recombine factor list
+    # Sort factor list (Greatest-Least)
+
     breakdown = Factor(num, dim)
     
     print('\nFactoring...')
