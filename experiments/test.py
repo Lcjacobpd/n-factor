@@ -18,7 +18,7 @@ def parse_args():
     '''
     parser = argparse.ArgumentParser('')
     parser.add_argument(
-        'cap',
+        'roof',
         type=int,
         help='Test value ceiling'
     )
@@ -28,21 +28,34 @@ def parse_args():
         help='Final factor count',
         default=3
     )
+    parser.add_argument(
+        '--floor',
+        type=int,
+        help='Test value floor',
+        default=10
+    )
 
     args = parser.parse_args()
-    if args.cap < 10:
-        raise argparse.ArgumentTypeError(F"{args.cap} must be larger than 10!")
+    if args.roof < 10:
+        raise argparse.ArgumentTypeError(F'{args.roof} must be larger than 10!')
 
     if args.dim < 2:
-        raise argparse.ArgumentTypeError(F"{args.dim} must be larger than 1!")
+        raise argparse.ArgumentTypeError(F'{args.dim} must be larger than 1!')
+
+    if args.floor < 10:
+        raise argparse.ArgumentTypeError(F'{args.floor} must me at least 10!')
+
+    if args.floor >= args.roof:
+        raise argparse.ArgumentTypeError('Test value range invalid! (floor >= roof')
 
     return args
 
 
 class Experiment:
-    def __init__(self, ceiling: int, dimensions: int):
-        self.ceiling = ceiling
+    def __init__(self, ceiling: int, dimensions: int, floor: int):
+        self.roof = ceiling
         self.dim = dimensions
+        self.floor = floor
 
     def run_tests(self) -> None:
         '''
@@ -56,7 +69,7 @@ class Experiment:
 
             # Run subprocess experiments
             # Recording output for csv data file
-            for value in range(10, self.ceiling + 1):
+            for value in range(self.floor, self.roof + 1):
                 process_info = subprocess.run(
                     F'python ../factor.py {value} --dim {self.dim}',
                     shell=True,
@@ -81,7 +94,7 @@ def main():
     Main program
     '''
     params = parse_args()
-    exp = Experiment(params.cap, params.dim)
+    exp = Experiment(params.roof, params.dim, params.floor)
     exp.run_tests()
 
 
