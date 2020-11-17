@@ -37,21 +37,24 @@ def parse_args():
 
     args = parser.parse_args()
     if args.roof < 10:
-        raise argparse.ArgumentTypeError(F'{args.roof} must be larger than 10!')
+        raise argparse.ArgumentTypeError(F'{args.roof} must be > 10!')
 
     if args.dim < 2:
-        raise argparse.ArgumentTypeError(F'{args.dim} must be larger than 1!')
+        raise argparse.ArgumentTypeError(F'{args.dim} must be > 1!')
 
     if args.floor < 10:
-        raise argparse.ArgumentTypeError(F'{args.floor} must me at least 10!')
+        raise argparse.ArgumentTypeError(F'{args.floor} must be >= 10!')
 
     if args.floor >= args.roof:
-        raise argparse.ArgumentTypeError('Test value range invalid! (floor >= roof')
+        raise argparse.ArgumentTypeError('Test value range invalid!')
 
     return args
 
 
 class Experiment:
+    '''
+    Define experiment parameters when testing factor.py
+    '''
     def __init__(self, ceiling: int, dimensions: int, floor: int):
         self.roof = ceiling
         self.dim = dimensions

@@ -1,7 +1,7 @@
 # Factor.py
+<br/>
 
-
-## 1. Basic Outline
+## Basic Outline
 
 The purpose of this program is to essentially determine the dimensions of a
 given volume. This sounds quite simple at first, the caviot is that the value
@@ -25,7 +25,7 @@ parameter).
 
 <br/>
 
-## 2. Prime Factorization Method
+## Prime Factorization Method
 
 ```Python
 def get_prime(self, number):
@@ -52,7 +52,7 @@ to be recombined until the desired number dimensions is reached
 
 <br/>
 
-## 3. Factor Recombination Method
+## Factor Recombination Method
 
 In an attempt to immitate the logic of an actual person recombining the
 condensing the list of prime factors, I arrived at the following psuedocode
@@ -104,13 +104,13 @@ def condense_list(self):
 
 <br/>
 
-## 4. Flowchart Representation:
+## Flowchart Representation:
 <br/>
 <img src="docs/img/flow.png"/>
 <br/><br/>
 
 
-## 5. Experiments
+## Experiments
 
 In the local directory experiments, there is an test script for trying
 factor.py with a range of numbers. There are three parameters for the
@@ -133,6 +133,11 @@ and all subsequent columns are the derived dimensions.
 375 -> 15, 5, 5
 376 -> 47, 4, 2
 ```
+
+<br/>
+
+### Los Alamos National Laboratory Code Release
+C19133 [bueno](https://github.com/lanl/bueno)
 
 <br/>
 
