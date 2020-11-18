@@ -36,7 +36,6 @@ def parse_args() -> argparse.Namespace:
     if args.dim < 1:
         raise argparse.ArgumentTypeError(F"{args.num} isn't a positive int")
 
-    print(type(args))
     return args
 
 

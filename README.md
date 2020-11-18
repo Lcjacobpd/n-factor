@@ -66,7 +66,7 @@ cube root of the initial number.
 > overflow to be the nth root. The same holds true for any other areas
 > dependent on the number of dimensions.
 
-Once the overflow is reached, the smallest and second largest numbers are 
+Once the overflow is reached, the smallest and second largest numbers are
 combined. This is done until there are only four elements in the list
 remaining. At which point the two smallest entries are combined and the
 final distribution is achieved and sorted. Should the list of prime factors
@@ -142,4 +142,4 @@ C19133 [bueno](https://github.com/lanl/bueno)
 <br/>
 
 -------------------------------------------------------------------------------
-Last Updated - 11/17/2020
+Last Updated - 11/18/2020
