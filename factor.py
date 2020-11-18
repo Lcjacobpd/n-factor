@@ -12,7 +12,7 @@ import argparse
 import typing
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     '''
     Process program arguments
     '''
@@ -36,6 +36,7 @@ def parse_args():
     if args.dim < 1:
         raise argparse.ArgumentTypeError(F"{args.num} isn't a positive int")
 
+    print(type(args))
     return args
 
 
@@ -173,7 +174,7 @@ class Factor:
         return  # Done
 
 
-def evaluate(num: int, dim: int) -> list:
+def evaluate(num: int, dim: int) -> typing.List[int]:
     '''
     Perform factor calculations
     '''
@@ -198,7 +199,7 @@ def evaluate(num: int, dim: int) -> list:
     return breakdown.factor_list
 
 
-def main():
+def main() -> None:
     '''
     Main program
     '''
