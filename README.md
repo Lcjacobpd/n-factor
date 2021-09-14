@@ -136,10 +136,6 @@ and all subsequent columns are the derived dimensions.
 
 <br/>
 
-### Los Alamos National Laboratory Code Release
-C19133 [bueno](https://github.com/lanl/bueno)
-
-<br/>
 
 -------------------------------------------------------------------------------
-Last Updated - 11/18/2020
+Last Updated - 9/14/2021
