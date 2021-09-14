@@ -104,7 +104,7 @@ def condense_list(self):
 
 <br/>
 
-## Flowchart Representation:
+## Flowchart Representation
 <br/>
 <img src="docs/img/flow.png"/>
 <br/><br/>
